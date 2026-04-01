@@ -23,7 +23,7 @@ RUN npm ci --omit=dev
 # 빌드 내용 복사
 COPY --from=builder /app/dist ./dist
 
-EXPOSE 3000
+EXPOSE 5107
 
 # 앱 실행
 CMD ["npm", "run", "start:prod"]
