@@ -7,9 +7,10 @@ import {
   RequestBufferingMiddleware,
   IServiceStorageService
 } from '@app/shared-core';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [],
+  imports: [UsersModule],
   controllers: [OmsApiController],
   providers: [
     OmsApiService, 

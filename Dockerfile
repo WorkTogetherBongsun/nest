@@ -4,7 +4,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 # 빌드할 앱 이름을 외부 인자(ARG)로 받음 (기본값 설정)
-ARG APP_NAME=company-api
+ARG APP_NAME=mesapphub
 ENV APP_NAME=${APP_NAME}
 
 # 패키지 매니저 파일 복사 및 설치 (캐시 활용)
@@ -20,7 +20,7 @@ RUN npx nest build ${APP_NAME}
 FROM node:22-alpine AS production
 
 WORKDIR /app
-ARG APP_NAME=company-api
+ARG APP_NAME=mesapphub
 ENV APP_NAME=${APP_NAME}
 
 # 프로덕션 의존성만 설치

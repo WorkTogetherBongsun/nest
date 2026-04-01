@@ -1,26 +1,26 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/company-api/src",
+  "sourceRoot": "apps/mesapphub/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "plugins": [
       "@nestjs/swagger"
     ],
     "webpack": true,
-    "tsConfigPath": "apps/company-api/tsconfig.app.json"
+    "tsConfigPath": "apps/mesapphub/tsconfig.app.json"
   },
   "monorepo": true,
-  "defaultProject": "company-api",
-  "root": "apps/company-api",
+  "defaultProject": "mesapphub",
+  "root": "apps/mesapphub",
   "projects": {
-    "company-api": {
+    "mesapphub": {
       "type": "application",
-      "root": "apps/company-api",
+      "root": "apps/mesapphub",
       "entryFile": "main",
-      "sourceRoot": "apps/company-api/src",
+      "sourceRoot": "apps/mesapphub/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/company-api/tsconfig.app.json"
+        "tsConfigPath": "apps/mesapphub/tsconfig.app.json"
       }
     },
     "intos-api": {

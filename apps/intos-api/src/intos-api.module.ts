@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { IntosApiController } from './intos-api.controller';
 import { IntosApiService } from './intos-api.service';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [],
+  imports: [UsersModule],
   controllers: [IntosApiController],
   providers: [IntosApiService],
 })
