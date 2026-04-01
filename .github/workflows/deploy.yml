@@ -1,0 +1,49 @@
+name: Build and Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  # github.repository는 현재 계정/레포지토리명을 뜻합니다. (예: user/my-nest-app)
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # GHCR에 이미지를 쓰기 위한 권한
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # GitHub 계정 도큰을 사용해 GHCR 로그인
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }} # 자동 발급되는 토큰입니다. 설정할 필요 없음.
+
+      # Docker 이미지 빌드 및 푸시
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      # Render 배포 트리거
+      - name: Trigger Render Deployment
+        if: success()
+        run: |
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK }}" ]; then
+            echo "웹훅 URL(RENDER_DEPLOY_HOOK)이 설정되지 않았으므로 트리거를 건너뜁니다."
+            exit 0
+          fi
+          echo "Render 배포를 시작합니다."
+          curl -X POST -d {} ${{ secrets.RENDER_DEPLOY_HOOK }}
