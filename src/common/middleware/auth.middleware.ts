@@ -2,11 +2,15 @@ import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/commo
 import { Request, Response, NextFunction } from 'express';
 import { IServiceStorageService } from '../services/i-service-storage.service';
 
+interface CustomRequest extends Request {
+  userContext?: any;
+}
+
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly storageService: IServiceStorageService) {}
 
-  use(req: Request, res: Response, next: NextFunction) {
+  use(req: CustomRequest, res: Response, next: NextFunction) {
     const authHeader = req.headers['authorization'];
 
     if (!authHeader) {
@@ -19,7 +23,7 @@ export class AuthMiddleware implements NestMiddleware {
       const context = this.storageService.validateToken(authHeader as string);
       
       // 요청 객체(Request Context)에 인증 정보 첨부
-      req['userContext'] = context;
+      req.userContext = context;
       
       next();
     } catch (err) {
