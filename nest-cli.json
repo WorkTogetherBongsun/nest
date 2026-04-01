@@ -1,9 +1,45 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/company-api/src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "plugins": ["@nestjs/swagger"]
+    "plugins": [
+      "@nestjs/swagger"
+    ],
+    "webpack": true,
+    "tsConfigPath": "apps/company-api/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "defaultProject": "company-api",
+  "root": "apps/company-api",
+  "projects": {
+    "company-api": {
+      "type": "application",
+      "root": "apps/company-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/company-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/company-api/tsconfig.app.json"
+      }
+    },
+    "intos-api": {
+      "type": "application",
+      "root": "apps/intos-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/intos-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/intos-api/tsconfig.app.json"
+      }
+    },
+    "oms-api": {
+      "type": "application",
+      "root": "apps/oms-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/oms-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/oms-api/tsconfig.app.json"
+      }
+    }
   }
 }

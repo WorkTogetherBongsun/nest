@@ -20,6 +20,10 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "strictBindCallApply": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@app/shared-core": ["libs/shared-core/src"],
+      "@app/shared-core/*": ["libs/shared-core/src/*"]
+    }
   }
 }

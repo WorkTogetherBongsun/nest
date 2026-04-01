@@ -3,27 +3,34 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
+# 빌드할 앱 이름을 외부 인자(ARG)로 받음 (기본값 설정)
+ARG APP_NAME=company-api
+ENV APP_NAME=${APP_NAME}
+
 # 패키지 매니저 파일 복사 및 설치 (캐시 활용)
 COPY package.json package-lock.json ./
 RUN npm ci
 
 # 소스 복사 및 빌드
 COPY . .
-RUN npm run build
+# 지정된 앱만 선택적으로 빌드
+RUN npx nest build ${APP_NAME}
 
 # Stage 2: Production
 FROM node:22-alpine AS production
 
 WORKDIR /app
+ARG APP_NAME=company-api
+ENV APP_NAME=${APP_NAME}
 
 # 프로덕션 의존성만 설치
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
-# 빌드 내용 복사
-COPY --from=builder /app/dist ./dist
+# builder에서 빌드된 특정 앱의 결과물만 복사
+COPY --from=builder /app/dist/apps/${APP_NAME} ./dist/apps/${APP_NAME}
 
 EXPOSE 5107
 
-# 앱 실행
-CMD ["npm", "run", "start:prod"]
+# 선택된 앱 실행 (명령어는 환경변수가 반영된 런타임 셸 실행)
+CMD ["sh", "-c", "node dist/apps/${APP_NAME}/main"]
