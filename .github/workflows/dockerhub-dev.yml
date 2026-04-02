@@ -1,0 +1,40 @@
+name: Build and Push to Docker Hub (Dev version)
+
+on:
+  push:
+    branches:
+      - dev
+      - development
+  workflow_dispatch: # 수동으로 GitHub Actions 탭에서 실행할 수 있는 옵션
+
+jobs:
+  build-and-push-docker-hub:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Docker Hub 로그인을 위한 액션
+      # GitHub Repository -> Settings -> Secrets and variables -> Actions 에 
+      # DOCKERHUB_USERNAME 과 DOCKERHUB_TOKEN 2개 필수 등록 필요!
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 향후 멀티 플랫폼(arm64 등) 빌드 확장을 위한 셋업
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Docker 이미지 빌드 및 푸시
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          # 1.0.0-dev 태그로 고정 명시! 
+          # 레포지토리 이름 부분(mesapphub)은 상황에 맞게 수정하여 사용 가능
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mesapphub:1.0.0-dev
