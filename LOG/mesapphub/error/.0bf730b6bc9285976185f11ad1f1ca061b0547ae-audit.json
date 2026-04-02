@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "LOG\\mesapphub\\error\\.0bf730b6bc9285976185f11ad1f1ca061b0547ae-audit.json",
+    "files": [
+        {
+            "date": 1775022613062,
+            "name": "LOG\\mesapphub\\error\\2026-04-01.error.log",
+            "hash": "5b6999a6516e66e523a7eaa66df581a85f067507f0313e04c648a84131b19838"
+        },
+        {
+            "date": 1775092526734,
+            "name": "LOG\\mesapphub\\error\\2026-04-02.error.log",
+            "hash": "dccd5416256b131d28418703e70d6e4defcb08169834608be361982cb40ad45a"
+        }
+    ],
+    "hashType": "sha256"
+}
