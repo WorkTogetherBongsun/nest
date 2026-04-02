@@ -55,6 +55,12 @@ export async function configureSharedCore(
   const port = process.env.PORT ?? options.defaultPort;
   await app.listen(port);
 
-  logger.log(`Application is running on: http://localhost:${port}`);
-  logger.log(`Swagger documentation: http://localhost:${port}/swagger`);
+  // 7. Log Environment Information
+  const env = process.env.NODE_ENV || 'development';
+  logger.log(`===============================================`);
+  logger.log(`🌱 Environment     : ${env.toUpperCase()}`);
+  logger.log(`🗄️  Database Target: [${process.env.DB_USER}]@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+  logger.log(`🚀 Application Port: http://localhost:${port}`);
+  logger.log(`📖 Swagger API Docs: http://localhost:${port}/swagger`);
+  logger.log(`===============================================`);
 }
