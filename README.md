@@ -1,6 +1,26 @@
 # OMS Monorepo Workspace (mesapphub)
 
-본 프로젝트는 `mesapphub`를 비롯한 여러 서비스(OMS API, Intos 등)를 단일 코드베이스에서 관리하고 확장하기 위해 구축된 **NestJS 모노레포(Monorepo)** 프로젝트입니다.
+본 프로젝트는 `mesapphub`를 비롯한 여러 도메인의 서비스(OMS API, Intos 앱 등)를 단일 코드베이스에서 우수하고 일관된 품질로 관리하기 위해 구축된 **NestJS 모노레포(Monorepo) 백엔드 생태계**입니다.
+
+---
+
+## 📖 프로젝트 개요 (Project Overview)
+
+본 워크스페이스는 도메인 간의 코드 중복을 최소화하고 확장성을 극대화하기 위해 다음과 같이 **다중 앱(Apps)**과 **공유 라이브러리(Libs)**로 구성되어 있습니다.
+
+### 🏢 구성 애플리케이션 (Apps)
+각 애플리케이션은 서로 다른 포트를 통해 독립적으로 실행 및 배포될 수 있습니다.
+
+- **`mesapphub`** (Port: `5107`)
+  : 사내 내부 관리 시스템을 위한 전용 백엔드 API 서비스.
+- **`oms-api`** (Port: `5108`)
+  : Order Management System(OMS)을 외부 파트너/고객에게 제공하기 위한 API 서비스.
+- **`intos-api`** (Port: `5109`)
+  : Intos 모바일 어플리케이션 등의 클라이언트와 통신하기 위한 B2C/B2B 앱 전용 API 서비스.
+
+### 🛠️ 공유 라이브러리 (Libraries)
+- **`@app/shared-core`**
+  : 애플리케이션들이 공통으로 사용하는 핵심 기능들을 모아둔 중앙 라이브러리입니다. `TypeORM` 데이터베이스 연결 상태, `Winston` 로거, `@nestjs/config` 기반의 환경변수 처리기, 그리고 전역 파이프 및 보안(`Helmet`, `CORS` 등) 설정과 커스텀 예외 포맷팅(Filter) 모듈 등이 이곳에서 한 번에 통제됩니다.
 
 ---
 
