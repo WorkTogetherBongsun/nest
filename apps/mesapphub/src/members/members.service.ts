@@ -16,4 +16,13 @@ export class MembersService {
     }
     return member;
   }
+
+  // ✨ 테스트를 위해 멤버 생성(저장) 로직 추가
+  async createMember(name: string): Promise<Member> {
+    const newMember = new Member();
+    newMember.name = name;
+    
+    // 비즈니스 로직(예: 중복 검사 등) 수행 후 레포지토리에 저장 요청
+    return await this.memberRepository.save(newMember);
+  }
 }
