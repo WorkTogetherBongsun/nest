@@ -1,98 +1,46 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# OMS Monorepo Workspace (mesapphub)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+본 프로젝트는 `mesapphub`를 비롯한 여러 서비스(OMS API, Intos 등)를 단일 코드베이스에서 관리하고 확장하기 위해 구축된 **NestJS 모노레포(Monorepo)** 프로젝트입니다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 📚 프로젝트 정책 및 아키텍처 가이드 (DOCS)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+본 프로젝트의 아키텍처 규칙과 개발 환경 설정은 `DOCS/` 폴더 내에 잘 정리되어 있습니다. 개발 전에 반드시 아래의 문서를 확인해 주세요!
 
-## Project setup
+1. [06. 로컬 환경 및 도커(회사망 분리) 데이터베이스 설정 가이드](./DOCS/6-local_development_setup.md) 🌟 **(Updated!)**
+2. [02. 모노레포 아키텍처 설계 배경 및 구조](./DOCS/1-monorepo-architecture.md)
+3. [03. 계층형 아키텍처 (Layered Architecture)](./DOCS/2-layered-architecture.md)
+4. [04. Swagger API 자동화 연동](./DOCS/3-swagger-api-docs.md)
+5. [05. 중앙 집중식 Winston 로깅 체계](./DOCS/4-winston-logging.md)
+6. [06. 로컬 및 운영 환경 변수 자동 분기 (`@nestjs/config`)](./DOCS/5-environment-config.md)
 
+---
+
+## 🚀 빠른 시작 가이드 (Quick Start)
+
+본 프로젝트는 회사망(도커 실행 불가)과 개인 로컬망(도커 실행)을 원활하게 분리하여 동작하도록 설계되었습니다.
+
+### 1. 패키지 설치
 ```bash
-$ npm install
+npm install
 ```
 
-## Compile and run the project
+### 2. 서버 실행하기 (선택)
 
+**✅ 시나리오 A: 회사에서 작업할 때 (도커 없음)**
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# 순수하게 NestJS 서버만 구동 (DB는 회사의 테스트/사내 로컬 DB를 바라봅니다)
+npm run start:dev
 ```
 
-## Run tests
-
+**✅ 시나리오 B: 개인망에서 작업할 때 (도커 DB 필요)**
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# PostgreSQL 도커 컨테이너를 함께 구동시키고 NestJS를 켭니다. 
+# 구동 중 터미널에서 Ctrl + C를 누르면 깨끗하게 한 번에 같이 종료됩니다.
+npm run start:dev:docker
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+*본 README는 기본적인 NestJS Starter 템플릿에서 mesapphub 프로젝트 전용 안내문으로 업데이트 되었습니다.*
