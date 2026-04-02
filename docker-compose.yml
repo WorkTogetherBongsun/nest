@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mesapphub-db:
+    image: postgres:15-alpine
+    container_name: mesapphub-pg
+    environment:
+      POSTGRES_USER: mesappdba
+      POSTGRES_PASSWORD: mesdba@@
+      POSTGRES_DB: mesapphub
+    ports:
+      - "30012:5432"
+    volumes:
+      - mesapphub-pg-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+
+volumes:
+  mesapphub-pg-data:
