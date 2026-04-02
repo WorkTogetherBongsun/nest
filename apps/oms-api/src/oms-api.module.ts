@@ -1,4 +1,5 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { OmsApiController } from './oms-api.controller';
 import { OmsApiService } from './oms-api.service';
 import {
@@ -10,7 +11,14 @@ import {
 import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [UsersModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+      ignoreEnvFile: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging',
+    }),
+    UsersModule,
+  ],
   controllers: [OmsApiController],
   providers: [
     OmsApiService, 

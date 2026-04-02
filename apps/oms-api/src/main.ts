@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { OmsApiModule } from './oms-api.module';
-import { configureSharedCore } from '@app/shared-core';
+import { configureSharedCore, getSharedLogger } from '@app/shared-core';
 
 async function bootstrap() {
   const app = await NestFactory.create(OmsApiModule, {
     rawBody: true,
-    logger: ['error', 'warn', 'log', 'debug', 'verbose'],
+    logger: getSharedLogger('oms-api'),
   });
 
   await configureSharedCore(app, {

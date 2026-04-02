@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { IntosApiModule } from './intos-api.module';
-import { configureSharedCore } from '@app/shared-core';
+import { configureSharedCore, getSharedLogger } from '@app/shared-core';
 
 async function bootstrap() {
   const app = await NestFactory.create(IntosApiModule, {
     rawBody: true,
-    logger: ['error', 'warn', 'log', 'debug', 'verbose'],
+    logger: getSharedLogger('intos-api'),
   });
 
   await configureSharedCore(app, {
