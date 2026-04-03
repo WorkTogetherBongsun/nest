@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "LOG\\oms-api\\error\\.f283beacffe2430af51bcc9c19710fc9663652dc-audit.json",
+    "files": [
+        {
+            "date": 1775181932898,
+            "name": "LOG\\oms-api\\error\\2026-04-03.error.log",
+            "hash": "eb54226554964a5769d8a9cd7508c0bd4a4ac877e223e8e04645894fbe07b817"
+        }
+    ],
+    "hashType": "sha256"
+}
