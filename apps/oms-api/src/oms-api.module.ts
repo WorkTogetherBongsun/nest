@@ -9,6 +9,7 @@ import {
   IServiceStorageService
 } from '@app/shared-core';
 import { UsersModule } from './users/users.module';
+import { ExchangeModule } from './exchange/exchange.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UsersModule } from './users/users.module';
       ignoreEnvFile: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging',
     }),
     UsersModule,
+    ExchangeModule,
   ],
   controllers: [OmsApiController],
   providers: [

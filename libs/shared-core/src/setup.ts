@@ -28,7 +28,10 @@ export async function configureSharedCore(
   });
 
   // 3. Security & Performance Middleware
-  app.use(helmet());
+  app.use(helmet({
+    crossOriginResourcePolicy: false,
+    contentSecurityPolicy: false,
+  }));
   app.use(compression());
 
   // 4. Built-in: Global Pipes
